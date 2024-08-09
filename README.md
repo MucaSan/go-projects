@@ -6,4 +6,4 @@ While I do them, I'll also add some notes from what I'm studying. Like code nota
 The main source for learning will be:
   * Golang's freecodecampo handbook https://www.freecodecamp.org/news/learn-golang-handbook;
   * Gophercises starter course (which purpose is for taking some simple project ideas) https://courses.calhoun.io/courses/cor_gophercises;
-  * Notion to take notation of what I learn from the handbook;
+  * Notion to take notes of what I learn from the handbook;
