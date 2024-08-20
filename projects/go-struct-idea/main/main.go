@@ -10,7 +10,6 @@ func main() {
 	fmt.Println("Take notice that the choice must be exactly 'car' or 'truck', or the program will turn to car by default.")
 
 	var chc string
-
 	fmt.Scan(&chc)
 
 	if chc == "truck" {
