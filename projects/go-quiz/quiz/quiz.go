@@ -43,11 +43,19 @@ func LoadReaderStruct(s string) *csv.Reader {
 	return csv.NewReader(strings.NewReader(s))
 }
 
-func ReadCsvFile(url string) string {
+func ReadCsvFile(url string) (string, error) {
 	b, err := os.ReadFile(url)
 	if err != nil {
 		log.Fatal(err)
 	}
-	return string(b)
+	return string(b), err
 
+}
+
+func DisplayHelpInfo() {
+	fmt.Println("Usage: go-quiz <command> ")
+	fmt.Println("\n Options [-u, or --url] and the URL text from which you can set CSV file for the quiz.")
+	fmt.Println("The CSV syntax file must be the same as the one in the quiz directory.")
+	fmt.Println("Leaving it blank, will result in the program using the default CSV file. ")
+	os.Exit(0)
 }
