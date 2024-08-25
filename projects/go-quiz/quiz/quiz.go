@@ -76,6 +76,8 @@ func DisplayHelpInfo() {
 	fmt.Println(`1.1 Whenever using "" with ', the text should be explicted as: " 'test' " and NOT 'test' by itself. `)
 	fmt.Println(`1.2 Whenever using double quotes for enclosing fields, in the CSV text, the syntax should be: " ""test"" " and`)
 	fmt.Println(`"NOT " "test" ", for example.`)
+	fmt.Println("2. Program usage. \n \n ")
+	fmt.Println("Be cautious about the CSV syntax file and take try testing your own quiz, before passing it to someone else. ")
 	os.Exit(0)
 }
 
