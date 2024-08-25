@@ -1,12 +1,24 @@
 package quiz
 
 import (
+	"bufio"
 	csv "encoding/csv"
 	"fmt"
 	"io"
 	"log"
 	"os"
 	"strings"
+)
+
+const (
+	QuestionTest1 string = "compare_String?"
+	QuestionTest2 string = "big test? 'beautiful'"
+	QuestionTest3 string = "what's up"
+	QuestionTest4 string = "123"
+	AnswerTest1   string = "3"
+	AnswerTest2   string = "1"
+	AnswerTest3   string = `"abcde"`
+	AnswerTest4   string = "'123'"
 )
 
 func showResults(totalAnswers, rightAnswers int) {
@@ -30,7 +42,8 @@ func PrintQuiz(r *csv.Reader) {
 			log.Fatal(err)
 		}
 		fmt.Printf("%d -  %s ? \n", cnt+1, rec[0])
-		fmt.Scanf("%s", &input)
+		reader := bufio.NewReader(os.Stdin)
+		input, _ = reader.ReadString('\n')
 		if input == rec[1] {
 			cntCorrect += 1
 		}
@@ -56,7 +69,13 @@ func DisplayHelpInfo() {
 	fmt.Println("Usage: go-quiz <command> ")
 	fmt.Println("\n Options [-u, or --url] and the URL text from which you can set CSV file for the quiz.")
 	fmt.Println("The CSV syntax file must be the same as the one in the quiz directory.")
-	fmt.Println("Leaving it blank, will result in the program using the default CSV file. ")
+	fmt.Println("Leaving it blank, will result in the program using the default CSV file. \n \n ")
+	fmt.Println("Format CSV syntax should follow STRICTLY the given CSV tests formats. ")
+	fmt.Println("The answers or questions should be done under a certain pattern, such as regarded in the text below.")
+	fmt.Println(`1. "" Usage`)
+	fmt.Println(`1.1 Whenever using "" with ', the text should be explicted as: " 'test' " and NOT 'test' by itself. `)
+	fmt.Println(`1.2 Whenever using double quotes for enclosing fields, in the CSV text, the syntax should be: " ""test"" " and`)
+	fmt.Println(`"NOT " "test" ", for example.`)
 	os.Exit(0)
 }
 

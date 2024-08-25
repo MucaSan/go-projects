@@ -1,7 +1,6 @@
 package quiz
 
 import (
-	"fmt"
 	"io"
 	"testing"
 )
@@ -10,53 +9,88 @@ func TestReadCsv(t *testing.T) {
 	test1, _ := ReadCsvFile("../quiz/test1.csv")
 	test2, _ := ReadCsvFile("../quiz/test2.csv")
 	test3, _ := ReadCsvFile("../quiz/test3.csv")
-	if test1 != `compare_String?, "very big string"` {
-		t.Errorf("ERROR AT TEST 1 - got %s, expected %s", test1, `compare_String?, "very big string"`)
+	test4, _ := ReadCsvFile("../quiz/test4.csv")
+	if test1 != `"compare_String?",3` {
+		t.Errorf("ERROR AT TEST 1 - got %s, expected %s", test1, `"compare_String?",3`)
 	}
-	if test2 != `""big test?"", 1` {
-		t.Errorf("ERROR AT TEST 2 - got %s, expected %s", test2, `""big test?"", 1`)
+	if test2 != `"big test? 'beautiful'","1"` {
+		t.Errorf("ERROR AT TEST 2 - got %s, expected %s", test2, `"big test? 'beautiful'","1"`)
 	}
-	if test3 != `"what's up", "1"` {
-		t.Errorf("ERROR AT TEST 3 - got %s, expected %s", test2, `"what's up", "1"`)
+	if test3 != `"what's up","""abcde"""` {
+		t.Errorf("ERROR AT TEST 3 - got %s, expected %s", test2, `"what's up","""abcde"""`)
+	}
+	if test4 != `123,"'123'"` {
+		t.Errorf("ERROR AT TEST 3 - got %s, expected %s", test2, `123,"'123'"`)
 	}
 }
 
-func TestLoadReaderStruct(t *testing.T) {
-	fmt.Println("Error has been here")
-	test1, _ := ReadCsvFile("../quiz/test1.csv")
-	test2, _ := ReadCsvFile("../quiz/test2.csv")
-	test3, _ := ReadCsvFile("../quiz/test3.csv")
-	fmt.Println("Error has been here2")
-	r1 := LoadReaderStruct(test1)
-	r2 := LoadReaderStruct(test2)
-	r3 := LoadReaderStruct(test3)
-	fmt.Println("Error has been here3")
+func TestLoadReaderStructCSV1(t *testing.T) {
+	s, _ := ReadCsvFile("../quiz/test1.csv")
+	r := LoadReaderStruct(s)
 	for {
-
-		rec1, err1 := r1.Read()
-		rec2, err2 := r2.Read()
-		rec3, err3 := r3.Read()
-		fmt.Println("Error has been here4")
-		if err1 == io.EOF || err2 == io.EOF || err3 == io.EOF {
+		rec, err := r.Read()
+		if err == io.EOF {
 			break
 		}
-		fmt.Println("Error has been here5")
-		if err1 != nil || err2 != nil || err3 != nil {
-			t.Errorf("One of the errors from read has retrieved an error.")
+		if err != nil || len(rec) != 2 {
+			t.Errorf(`Error, file reader has issues. File reader exited with %d size. \n 
+			The string formated was {%s}, which caused the issue. `, len(rec), s)
 		}
-		fmt.Println("Error has been here6")
-		if rec1[0] != "compare_String?" || rec1[1] != `"very big string"` {
-			t.Errorf("First element: %s and Second element: %s. Expected %s and %s, respectively.", rec1[0], rec1[1], "compare_String?", `"very big string"`)
+		if rec[0] != QuestionTest1 || rec[1] != AnswerTest1 {
+			t.Errorf("First element: %s and Second element: %s. Expected %s and %s, respectively.", rec[0], rec[1], QuestionTest1, AnswerTest1)
 		}
-		fmt.Println("Error has been here7")
-		if rec2[0] != `""big test?""` || rec2[1] != "1" {
-			t.Errorf("First element: %s and Second element: %s. Expected %s and %s, respectively.", rec2[0], rec2[1], `""big test?""`, "1")
-		}
-		fmt.Println("Error has been here8")
-		if rec3[0] != `"what's up"` || rec3[1] != `"1"` {
-			t.Errorf("First element: %s and Second element: %s. Expected %s and %s, respectively.", rec3[0], rec3[1], `"what's up"`, `"1"`)
-		}
-		fmt.Println("Error has been here9")
 	}
+}
+func TestLoadReaderStructCSV2(t *testing.T) {
+	s, _ := ReadCsvFile("../quiz/test2.csv")
+	r := LoadReaderStruct(s)
+	for {
+		rec, err := r.Read()
+		if err == io.EOF {
+			break
+		}
+		if err != nil || len(rec) != 2 {
+			t.Errorf(`Error, file reader has issues. File reader exited with %d size. \n 
+			The string formated was {%s}, which caused the issue. `, len(rec), s)
+		}
+		if rec[0] != QuestionTest2 || rec[1] != AnswerTest2 {
+			t.Errorf("First element: %s and Second element: %s. Expected %s and %s, respectively.", rec[0], rec[1], QuestionTest2, AnswerTest2)
+		}
+	}
+}
 
+func TestLoadReaderStructCSV3(t *testing.T) {
+	s, _ := ReadCsvFile("../quiz/test3.csv")
+	r := LoadReaderStruct(s)
+	for {
+		rec, err := r.Read()
+		if err == io.EOF {
+			break
+		}
+		if err != nil || len(rec) != 2 {
+			t.Errorf(`Error, file reader has issues. File reader exited with %d size. \n 
+			The string formated was {%s}, which caused the issue. `, len(rec), s)
+		}
+		if rec[0] != QuestionTest3 || rec[1] != AnswerTest3 {
+			t.Errorf("First element: %s and Second element: %s. Expected %s and %s, respectively.", rec[0], rec[1], QuestionTest3, AnswerTest3)
+		}
+	}
+}
+
+func TestLoadReaderStructCSV4(t *testing.T) {
+	s, _ := ReadCsvFile("../quiz/test4.csv")
+	r := LoadReaderStruct(s)
+	for {
+		rec, err := r.Read()
+		if err == io.EOF {
+			break
+		}
+		if err != nil || len(rec) != 2 {
+			t.Errorf(`Error, file reader has issues. File reader exited with %d size. \n 
+			The string formated was {%s}, which caused the issue. `, len(rec), s)
+		}
+		if rec[0] != QuestionTest4 || rec[1] != AnswerTest4 {
+			t.Errorf("First element: %s and Second element: %s. Expected %s and %s, respectively.", rec[0], rec[1], QuestionTest4, AnswerTest4)
+		}
+	}
 }
