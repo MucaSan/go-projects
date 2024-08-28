@@ -10,4 +10,8 @@ func main() {
 	truck := inter.Truck{Name: "truck", NumTires: 4, Weight: 3000.00}
 
 	motorcycle := inter.Motorcycle{Name: "motorcycle", NumTires: 2, Weight: 100.00}
+
+	inter.DescribeVehicle(car)
+	inter.DescribeVehicle(truck)
+	inter.DescribeVehicle(motorcycle)
 }

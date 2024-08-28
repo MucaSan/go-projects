@@ -69,14 +69,13 @@ func (m Motorcycle) GetWeight() float64 {
 	return m.Weight
 }
 func showInfo(v Vehicle) {
-	tp := reflect.TypeOf(v).String()
-	return ("type: " + tp + "\n" +
-		"name: .")
+	fmt.Println("Name: ", v.GetName())
+	fmt.Println("Weight: ", v.GetWeight())
+	fmt.Println("Number Of Tires: ", v.GetNumTires())
+	fmt.Println("Type: ", reflect.TypeOf(v))
+
 }
 
 func DescribeVehicle(v Vehicle) {
-	switch v.(type) {
-	case Motorcycle:
-		fmt.Println()
-	}
+	showInfo(v)
 }
